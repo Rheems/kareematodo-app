@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { authAPI } from "../utils/api";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { authAPI } from '../utils/api';
 
 const AuthContext = createContext(null);
 
@@ -9,8 +9,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem("token");
-
+      const token = localStorage.getItem('token');
+      
       if (token) {
         try {
           const userData = await authAPI.getProfile();
@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
           // Silent fail - just means they need to login again
         }
       }
-
+      
       setLoading(false);
     };
 
@@ -30,6 +30,7 @@ export function AuthProvider({ children }) {
   const login = async (credentials) => {
     try {
       const response = await authAPI.login(credentials);
+<<<<<<< HEAD
 
       // Debug: See what we actually get back
       console.log("🔍 Login response:", response);
@@ -54,10 +55,40 @@ export function AuthProvider({ children }) {
         return { success: true };
       }
 
+=======
+      
+      // Debug: See what we actually get back
+      console.log('🔍 Login response:', response);
+      
+      // Try to find token in ANY possible location
+      const token = 
+        response?.token || 
+        response?.access_token || 
+        response?.accessToken ||
+        response?.data?.token || 
+        response?.data?.access_token ||
+        response?.data?.accessToken;
+      
+      // Try to find user in ANY possible location
+      const userData = 
+        response?.user || 
+        response?.data?.user || 
+        response?.data || 
+        response;
+      
+      // If we got a token, we're good!
+      if (token) {
+        localStorage.setItem('token', token);
+        setUser(userData);
+        return { success: true };
+      }
+      
+>>>>>>> 1b37779bd86027ac6e8477912ac09bde7a3dff47
       // If no token but response is successful, store the whole thing
       // The API might work differently than expected
       if (response) {
         // Sometimes the response itself IS the token
+<<<<<<< HEAD
         localStorage.setItem("token", JSON.stringify(response));
         setUser(userData);
         return { success: true };
@@ -70,6 +101,21 @@ export function AuthProvider({ children }) {
       return {
         success: false,
         error: error.response?.data?.message || error.message || "Login failed",
+=======
+        localStorage.setItem('token', JSON.stringify(response));
+        setUser(userData);
+        return { success: true };
+      }
+      
+      // Only throw error if we truly got nothing
+      throw new Error('Login succeeded but no data received');
+      
+    } catch (error) {
+      console.error('❌ Login error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.message || error.message || 'Login failed'
+>>>>>>> 1b37779bd86027ac6e8477912ac09bde7a3dff47
       };
     }
   };
@@ -77,6 +123,7 @@ export function AuthProvider({ children }) {
   const signup = async (userData) => {
     try {
       const response = await authAPI.register(userData);
+<<<<<<< HEAD
 
       // Debug: See what we actually get back
       console.log("🔍 Signup response:", response);
@@ -115,6 +162,49 @@ export function AuthProvider({ children }) {
         success: false,
         error:
           error.response?.data?.message || error.message || "Signup failed",
+=======
+      
+      // Debug: See what we actually get back
+      console.log('🔍 Signup response:', response);
+      
+      // Try to find token in ANY possible location
+      const token = 
+        response?.token || 
+        response?.access_token || 
+        response?.accessToken ||
+        response?.data?.token || 
+        response?.data?.access_token ||
+        response?.data?.accessToken;
+      
+      // Try to find user in ANY possible location
+      const user = 
+        response?.user || 
+        response?.data?.user || 
+        response?.data || 
+        response;
+      
+      // If we got a token, we're good!
+      if (token) {
+        localStorage.setItem('token', token);
+        setUser(user);
+        return { success: true };
+      }
+      
+      // If no token but response is successful, store the whole thing
+      if (response) {
+        localStorage.setItem('token', JSON.stringify(response));
+        setUser(user);
+        return { success: true };
+      }
+      
+      throw new Error('Signup succeeded but no data received');
+      
+    } catch (error) {
+      console.error('❌ Signup error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.message || error.message || 'Signup failed'
+>>>>>>> 1b37779bd86027ac6e8477912ac09bde7a3dff47
       };
     }
   };
@@ -125,7 +215,7 @@ export function AuthProvider({ children }) {
     } catch (error) {
       // Ignore errors on logout
     } finally {
-      localStorage.removeItem("token");
+      localStorage.removeItem('token');
       setUser(null);
     }
   };
@@ -156,7 +246,7 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
+    throw new Error('useAuth must be used within AuthProvider');
   }
   return context;
 }
