@@ -1,4 +1,13 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import type {
+  Todo,
+  TodoFormData,
+  TodosResponse,
+  AuthResponse,
+  User,
+  LoginCredentials,
+  SignupData,
+} from "../types";
 
 const API_BASE_URL = "https://api.oluwasetemi.dev";
 
@@ -21,8 +30,8 @@ api.interceptors.request.use((config) => {
 
 // Enhanced error logging
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
     console.error("❌ API Error:", {
       url: error.config?.url,
       method: error.config?.method,
@@ -33,39 +42,27 @@ api.interceptors.response.use(
   },
 );
 
-// TODO/TASK API - Using /tasks endpoint
+// TODO API
+
 export const todoAPI = {
-  getTodos: async (page = 1, limit = 10) => {
+  getTodos: async (page = 1, limit = 10): Promise<TodosResponse> => {
     try {
-      const response = await api.get(`/tasks?page=${page}&limit=${limit}`);
+      const response = await api.get<any>(`/tasks?page=${page}&limit=${limit}`);
       console.log("✅ Get tasks response:", response.data);
 
-      // Handle different response structures
       const tasks = response.data.data || response.data.tasks || response.data;
 
-      // Extract pagination metadata with fallbacks
       const totalPages =
         response.data.totalPages ||
         response.data.total_pages ||
-        response.data.meta?.totalPages ||
         Math.ceil((response.data.total || tasks.length) / limit) ||
         1;
 
-      const currentPage =
-        response.data.page ||
-        response.data.current_page ||
-        response.data.meta?.currentPage ||
-        page;
+      const currentPage = response.data.page || page;
+      const total = response.data.total || tasks.length;
 
-      const total =
-        response.data.total ||
-        response.data.total_count ||
-        response.data.meta?.total ||
-        tasks.length;
-
-      // Transform tasks to our format
-      const transformedTasks = Array.isArray(tasks)
-        ? tasks.map((task) => ({
+      const transformedTasks: Todo[] = Array.isArray(tasks)
+        ? tasks.map((task: any) => ({
             id: task.id,
             title: task.name || task.title,
             description: task.description,
@@ -78,20 +75,13 @@ export const todoAPI = {
           }))
         : [];
 
-      console.log("📊 Transformed data:", {
-        totalTasks: transformedTasks.length,
-        totalPages: totalPages,
-        currentPage: currentPage,
-        total: total,
-      });
-
       return {
         data: transformedTasks,
         meta: {
-          totalPages: totalPages,
-          currentPage: currentPage,
-          total: total,
-          limit: limit,
+          totalPages,
+          currentPage,
+          total,
+          limit,
         },
       };
     } catch (error) {
@@ -100,14 +90,11 @@ export const todoAPI = {
     }
   },
 
-  getTodo: async (id) => {
+  getTodo: async (id: string): Promise<Todo> => {
     try {
-      const response = await api.get(`/tasks/${id}`);
-      console.log("✅ Get single task response:", response.data);
-
+      const response = await api.get<any>(`/tasks/${id}`);
       const task = response.data.data || response.data;
 
-      // Transform to our format
       return {
         id: task.id,
         title: task.name || task.title,
@@ -125,9 +112,8 @@ export const todoAPI = {
     }
   },
 
-  createTodo: async (todoData) => {
+  createTodo: async (todoData: TodoFormData): Promise<Todo> => {
     try {
-      // Transform our format to API format
       const taskData = {
         name: todoData.title,
         description: todoData.description || null,
@@ -135,13 +121,9 @@ export const todoAPI = {
         priority: todoData.priority || "MEDIUM",
       };
 
-      console.log("📤 Creating task with data:", taskData);
-
-      const response = await api.post("/tasks", taskData);
-      console.log("✅ Create task response:", response.data);
-
-      // Transform response back
+      const response = await api.post<any>("/tasks", taskData);
       const task = response.data.data || response.data;
+
       return {
         id: task.id,
         title: task.name || task.title,
@@ -152,14 +134,13 @@ export const todoAPI = {
         createdAt: task.createdAt || task.created_at,
       };
     } catch (error) {
-      console.error("❌ Error creating task:", error.response?.data || error);
+      console.error("❌ Error creating task:", error);
       throw error;
     }
   },
 
-  updateTodo: async (id, todoData) => {
+  updateTodo: async (id: string, todoData: TodoFormData): Promise<Todo> => {
     try {
-      // Transform our format to API format
       const taskData = {
         name: todoData.title,
         description: todoData.description || null,
@@ -167,28 +148,13 @@ export const todoAPI = {
         priority: todoData.priority || "MEDIUM",
       };
 
-      console.log("📤 Updating task", id, "with data:", taskData);
-
-      // Try PATCH first (most REST APIs prefer PATCH for partial updates)
       let response;
       try {
-        response = await api.patch(`/tasks/${id}`, taskData);
-        console.log("✅ Update task response (PATCH):", response.data);
+        response = await api.patch<any>(`/tasks/${id}`, taskData);
       } catch (patchError) {
-        // If PATCH fails (404 or 405), try PUT
-        if (
-          patchError.response?.status === 404 ||
-          patchError.response?.status === 405
-        ) {
-          console.log("⚠️ PATCH failed, trying PUT...");
-          response = await api.put(`/tasks/${id}`, taskData);
-          console.log("✅ Update task response (PUT):", response.data);
-        } else {
-          throw patchError;
-        }
+        response = await api.put<any>(`/tasks/${id}`, taskData);
       }
 
-      // Transform response back
       const task = response.data.data || response.data;
       return {
         id: task.id,
@@ -200,72 +166,59 @@ export const todoAPI = {
         updatedAt: task.updatedAt || task.updated_at,
       };
     } catch (error) {
-      console.error("❌ Error updating task:", error.response?.data || error);
+      console.error("❌ Error updating task:", error);
       throw error;
     }
   },
 
-  deleteTodo: async (id) => {
+  deleteTodo: async (id: string): Promise<void> => {
     try {
-      console.log("🗑️ Deleting task:", id);
-      const response = await api.delete(`/tasks/${id}`);
-      console.log("✅ Delete task response:", response.data);
-      return response.data;
+      await api.delete(`/tasks/${id}`);
     } catch (error) {
-      console.error("❌ Error deleting task:", error.response?.data || error);
+      console.error("❌ Error deleting task:", error);
       throw error;
     }
   },
 };
 
-// AUTH API
+//AUTH API
+
 export const authAPI = {
-  register: async (userData) => {
+  register: async (userData: SignupData): Promise<AuthResponse> => {
     try {
-      console.log("📤 Registering user:", userData.email);
-      const response = await api.post("/auth/register", userData);
-      console.log("✅ Register response:", response.data);
+      const response = await api.post<AuthResponse>("/auth/register", userData);
       return response.data;
     } catch (error) {
-      console.error("❌ Registration error:", error.response?.data || error);
+      console.error("❌ Registration error:", error);
       throw error;
     }
   },
 
-  login: async (credentials) => {
+  login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
     try {
-      console.log("📤 Logging in user:", credentials.email);
-      const response = await api.post("/auth/login", credentials);
-      console.log("✅ Login response:", response.data);
+      const response = await api.post<AuthResponse>("/auth/login", credentials);
       return response.data;
     } catch (error) {
-      console.error("❌ Login error:", error.response?.data || error);
+      console.error("❌ Login error:", error);
       throw error;
     }
   },
 
-  logout: async () => {
+  logout: async (): Promise<void> => {
     try {
-      const response = await api.post("/auth/logout");
-      console.log("✅ Logout response:", response.data);
-      return response.data;
+      await api.post("/auth/logout");
     } catch (error) {
       console.error("⚠️ Logout error (ignored):", error);
-      // Don't throw error on logout - just clear token
-      return { success: true };
     }
   },
 
-  getProfile: async () => {
+  getProfile: async (): Promise<User> => {
     try {
-      const response = await api.get("/auth/me");
-      console.log("✅ Get profile response:", response.data);
-
-      // Handle different response structures
+      const response = await api.get<any>("/auth/me");
       const user = response.data.data || response.data.user || response.data;
       return user;
     } catch (error) {
-      console.error("❌ Get profile error:", error.response?.data || error);
+      console.error("❌ Get profile error:", error);
       throw error;
     }
   },

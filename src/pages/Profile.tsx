@@ -1,6 +1,6 @@
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext.js";
 import { useNavigate } from "react-router-dom";
-import SEO from "../components/SEO";
+import SEO from "../components/SEO.js";
 
 function Profile() {
   const { user, logout } = useAuth();

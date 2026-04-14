@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext.js";
 import App from "./App.jsx";
 import "./index.css";
 

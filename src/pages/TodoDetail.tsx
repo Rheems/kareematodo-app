@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { todoAPI } from "../utils/api";
-import Modal from "../components/Modal";
-import TodoForm from "../components/TodoForm";
-import DeleteConfirmation from "../components/DeleteConfirmation";
-import SEO from "../components/SEO";
+import { todoAPI } from "../utils/api.js";
+import Modal from "../components/Modal.js";
+import TodoForm from "../components/TodoForm.js";
+import DeleteConfirmation from "../components/DeleteConfirmation.js";
+import SEO from "../components/SEO.js";
 
 function TodoDetail() {
   const { id } = useParams();

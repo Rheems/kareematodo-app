@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import ErrorBoundary from "./components/ErrorBoundary";
-import Navbar from "./components/Navbar";
-import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./pages/Home";
-import TodoDetail from "./pages/TodoDetail";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
-import ErrorTest from "./pages/ErrorTest";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import Navbar from "./components/Navbar.js";
+import ProtectedRoute from "./components/ProtectedRoute.js";
+import Home from "./pages/Home.jsx";
+import TodoDetail from "./pages/TodoDetail.js";
+import Login from "./pages/Login.js";
+import Signup from "./pages/Signup.js";
+import Profile from "./pages/Profile.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import ErrorTest from "./pages/ErrorTest.jsx";
 
 function LoadingFallback() {
   return (

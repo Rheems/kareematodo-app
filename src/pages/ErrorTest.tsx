@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SEO from "../components/SEO";
+import SEO from "../components/SEO.js";
 
 function ErrorTest() {
   const [shouldError, setShouldError] = useState(false);

@@ -1,0 +1,152 @@
+Frontend Second Semester Examination Project
+AltSchool of Frontend Engineering Karatu 2025 Second Semester Month [4] – Exam Frontend Second Semester Examination Project
+In Progress
+Frontend Second Semester Examination
+
+Todo Application Project
+Project Overview
+Build a Todo application using React that showcases your frontend engineering skills. You’ll demonstrate your ability to work with APIs, implement React patterns, handle routing, and create accessible user interfaces.
+
+Technology Stack
+Required:
+
+React 19+ (functional components and hooks), with Suspense and ErrorBoundary and Proper SEO.
+React Router or Tanstack Router
+API integration (fetch or axios with Tanstack Query or swr)
+One consistent styling approach: Tailwind CSS (recommended), CSS Modules, Styled Components, or vanilla CSS with BEM
+Suggested Libraries:
+
+UI: ShadCN/UI (recommended), Chakra UI, React-Aria, or Daisy UI
+Icons: React Icons, Lucide React, or Iconify
+Forms: Tanstack Form or React Hook Form
+API Details
+Detail Value
+Base URL https://api.oluwasetemi.dev
+Documentation https://api.oluwasetemi.dev/reference
+Core Endpoints:
+
+GET /todos – List all todos
+GET /todos/{id} – Get a single todo
+POST /todos – Create a todo
+PUT /todos/{id} – Update a todo
+DELETE /todos/{id} – Delete a todo
+For Advanced Features:
+
+Authentication: /auth/register, /auth/login, /auth/me, /auth/logout
+WebSocket: WS /ws/tasks for real-time updates
+Required Features (50%)
+Todo List & Pagination
+Display todos from the API with pagination (10 items per page)
+Show title, completion status, and other relevant information
+Include user-friendly pagination controls
+Todo Details
+Create a nested route to display individual todo details
+Show all available information about the selected item
+Include navigation back to the main list
+Error Handling
+Implement Error Boundary component
+Add a test route that triggers the error boundary
+Create a custom 404 page for undefined routes
+Basic UI/UX
+Use semantic HTML and proper accessibility attributes
+Ensure mobile and desktop responsiveness
+Maintain consistent styling
+Show loading states during API calls
+Search & Filtering
+Add search functionality to filter todos by title
+Implement filters for completion status (all/complete/incomplete)
+Bonus Features
+Implement any of these for extra credit:
+
+CRUD Operations
+
+Create: Add new todos with a form/modal
+Update: Edit existing todos
+Delete: Remove todos with confirmation dialog
+Authentication & User Management
+
+Create signup and login flows with validation
+Show only the logged-in user’s tasks
+Add protected routes
+Create a simple user profile page
+Real-Time Notifications
+
+Connect to WebSocket API for live updates
+Show notifications when tasks change
+Add visual indicators for updates
+Create a notifications center
+Offline Capabilities
+
+Cache API responses.
+Implement offline support
+UI/UX Requirements (15%)
+Design
+Consistent color scheme and typography
+Mobile-first responsive design
+Clear navigation and intuitive interface
+Accessibility
+Semantic HTML elements
+Proper ARIA attributes where needed
+Keyboard navigation
+Color contrast compliance (WCAG AA)
+Screen reader compatibility
+Focus management
+Documentation (5%)
+Create a README.md (no emoji) with:
+
+Project description and features
+Setup instructions
+Available scripts
+Technology choices and reasoning
+Screenshots or GIFs of key features
+Known issues and future improvements
+Evaluation Criteria
+Category Weight
+Core functionality 50%
+Code quality and organization 20%
+UI/UX and accessibility 15%
+Documentation 5%
+Bonus features 10%
+Submission Guidelines
+Repository
+Create a private GitHub repository
+Add @Oluwasetemi as a collaborator
+Use clear commit messages
+Include proper .gitignore
+Deployment
+Host on Netlify, Vercel, or PipeOps
+Verify all features work in production
+Include deployment instructions in README
+Submit via Google Form
+GitHub repository URL
+Deployed application URL
+Brief summary of challenges and solutions
+SUBMISSION LINK: https://forms.gle/yJRoC2efQLD97wf98
+SUBMISSION DEADLINE: 15TH FEBRUARY, 2026 AT 11:59PM WAT
+
+Development Tips
+Workflow
+Start with API integration and basic todo display
+Add routing and detail pages
+Implement styling and responsive design
+Add error handling
+Implement bonus features if time permits
+Common Mistakes to Avoid
+Missing loading/error states
+Forgetting key props in lists
+Neglecting mobile layouts
+Poor error handling
+Accessibility oversights
+Suggested Timeline
+Days 1-2: Setup and basic functionality
+Days 3-4: Routing and styling
+Days 5-6: Error handling and accessibility
+Day 7: Bonus features and deployment
+Support
+If you have questions, reach out immediately.
+
+Hi first of all explain this in simple terms, Be the student answering this let's begin coding together
+Explain each term, each concept
+This is an examination
+After explaining what the question is about
+Let's start the project setup

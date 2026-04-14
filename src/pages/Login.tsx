@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext.js";
 import { useForm } from "react-hook-form";
-import SEO from "../components/SEO";
+import SEO from "../components/SEO.js";
 
 function Login() {
   const { login } = useAuth();
@@ -36,24 +36,27 @@ function Login() {
     <>
       <SEO title="Login" description="Login to your todo account" />
 
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-amber-900">
               Sign in to your account
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
+            <p className="mt-2 text-center text-sm text-amber-700">
               Or{" "}
               <Link
                 to="/signup"
-                className="font-medium text-blue-600 hover:text-blue-500"
+                className="font-medium text-amber-800 hover:text-amber-900 underline"
               >
                 create a new account
               </Link>
             </p>
           </div>
 
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="mt-8 space-y-6 bg-white p-8 rounded-2xl shadow-xl border border-amber-200"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                 <p className="text-sm text-red-800">{error}</p>
@@ -64,7 +67,7 @@ function Login() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-amber-900 mb-1"
                 >
                   Email address <span className="text-red-500">*</span>
                 </label>
@@ -80,8 +83,8 @@ function Login() {
                     },
                   })}
                   className={`appearance-none relative block w-full px-3 py-2 border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  } placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                    errors.email ? "border-red-500" : "border-amber-300"
+                  } placeholder-amber-400 text-amber-900 rounded-lg focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm`}
                   placeholder="Enter your email"
                 />
                 {errors.email && (
@@ -94,7 +97,7 @@ function Login() {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-amber-900 mb-1"
                 >
                   Password <span className="text-red-500">*</span>
                 </label>
@@ -110,8 +113,8 @@ function Login() {
                     },
                   })}
                   className={`appearance-none relative block w-full px-3 py-2 border ${
-                    errors.password ? "border-red-500" : "border-gray-300"
-                  } placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                    errors.password ? "border-red-500" : "border-amber-300"
+                  } placeholder-amber-400 text-amber-900 rounded-lg focus:outline-none focus:ring-amber-500 focus:border-amber-500 sm:text-sm`}
                   placeholder="Enter your password"
                 />
                 {errors.password && (
@@ -126,7 +129,7 @@ function Login() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+                className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-amber-700 to-amber-900 hover:from-amber-800 hover:to-amber-950 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition shadow-lg hover:shadow-xl"
               >
                 {isLoading ? "Signing in..." : "Sign in"}
               </button>
@@ -134,7 +137,10 @@ function Login() {
           </form>
 
           <div className="text-center">
-            <Link to="/" className="text-sm text-blue-600 hover:text-blue-500">
+            <Link
+              to="/"
+              className="text-sm text-amber-800 hover:text-amber-900 underline"
+            >
               Back to home
             </Link>
           </div>
