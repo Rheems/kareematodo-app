@@ -49,13 +49,15 @@ export const todoAPI = {
     try {
       const response = await api.get<any>(`/tasks?page=${page}&limit=${limit}`);
       console.log("✅ Get tasks response:", response.data);
+      console.log("RAW API response:", JSON.stringify(response.data, null, 2));
 
       const tasks = response.data.data || response.data.tasks || response.data;
 
       const totalPages =
         response.data.totalPages ||
         response.data.total_pages ||
-        Math.ceil((response.data.total || tasks.length) / limit) ||
+        response.data.meta?.totalPages ||
+        Math.ceil(total / limit) ||
         1;
 
       const currentPage = response.data.page || page;

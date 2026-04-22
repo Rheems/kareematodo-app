@@ -90,6 +90,8 @@ function Home() {
     }) || [];
 
   const totalPages = data?.meta?.totalPages || 1;
+  console.log("Meta data:", data?.meta);
+  console.log("Total pages:", totalPages);
 
   if (isLoading) {
     return (

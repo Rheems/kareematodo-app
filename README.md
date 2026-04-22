@@ -61,27 +61,27 @@ A modern, accessible todo application built with React that allows users to mana
 
 src/
 ├── components/ # Reusable components
-│ ├── ErrorBoundary.jsx # Error boundary for error handling
-│ ├── Modal.jsx # Reusable modal component
-│ ├── Navbar.jsx # Navigation bar with auth state
-│ ├── ProtectedRoute.jsx # Route wrapper for authentication
-│ ├── SEO.jsx # SEO component for meta tags
-│ ├── TodoForm.jsx # Form for creating/editing todos
-│ └── DeleteConfirmation.jsx # Delete confirmation dialog
+│ ├── ErrorBoundary.tsx # Error boundary for error handling
+│ ├── Modal.tsx # Reusable modal component
+│ ├── Navbar.tsx # Navigation bar with auth state
+│ ├── ProtectedRoute.tsx # Route wrapper for authentication
+│ ├── SEO.tsx # SEO component for meta tags
+│ ├── TodoForm.tsx # Form for creating/editing todos
+│ └── DeleteConfirmation.tsx # Delete confirmation dialog
 ├── context/
-│ └── AuthContext.jsx # Authentication context and state
+│ └── AuthContext.tsx # Authentication context and state
 ├── pages/ # Page components
-│ ├── Home.jsx # Main todo list page
-│ ├── TodoDetail.jsx # Individual todo detail page
-│ ├── Login.jsx # Login page
-│ ├── Signup.jsx # Registration page
-│ ├── Profile.jsx # User profile page
-│ ├── NotFound.jsx # 404 error page
-│ └── ErrorTest.jsx # Error boundary test page
+│ ├── Home.tsx # Main todo list page
+│ ├── TodoDetail.tsx # Individual todo detail page
+│ ├── Login.tsx # Login page
+│ ├── Signup.tsx # Registration page
+│ ├── Profile.tsx # User profile page
+│ ├── NotFound.tsx # 404 error page
+│ └── ErrorTest.tsx # Error boundary test page
 ├── utils/
 │ └── api.js # API configuration and endpoints
-├── App.jsx # Main app component with routing
-├── main.jsx # Application entry point
+├── App.tsx # Main app component with routing
+├── main.tsx # Application entry point
 └── index.css # Global styles and Tailwind directives
 
 ## API Integration
@@ -183,7 +183,7 @@ The application handles field name mapping between the API and internal data str
    Progressive Web App (PWA) capabilities
    Real-time notifications via WebSocket
    Deployment
-   Deployed URL: [https://rheemstodo-app.vercel.app]
+   Deployed URL: [https://kareematodo-app-c3y2-96dy2v58o-kareemah-ahmad-yusufs-projects.vercel.app]
    Deployment Steps (Vercel)
    Push code to GitHub
    Import project in Vercel
@@ -206,9 +206,10 @@ The application handles field name mapping between the API and internal data str
    Author
    [Karimah Ahmad Yusuf]
    AltSchool Africa - Frontend Engineering
-   February 2026
+   April 2026
    Acknowledgments
    API provided by Oluwasetemi Ojo (@Oluwasetemi)
    Design inspiration from Todoist and Linear
    AltSchool Africa for the learning opportunity
+
    ```
