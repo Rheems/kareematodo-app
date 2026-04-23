@@ -1,6 +1,8 @@
 README.md
 
-Create README.md in your project root:
+Typescript Conversion
+This project was converted from javascript to Typescript as part of third
+semester assessment
 
 # Todo App - Task Management Application
 
@@ -50,12 +52,14 @@ A modern, accessible todo application built with React that allows users to mana
 ## Technology Stack
 
 - **React 19+** - Functional components with Hooks
+- \*\*TypeScript
 - **React Router** - Client-side routing
 - **Tanstack Query (React Query)** - Server state management & caching
 - **Axios** - HTTP client for API requests
 - **Tailwind CSS** - Utility-first styling
 - **React Hook Form** - Form validation and handling
 - **Vite** - Build tool and dev server
+- vercel deployment
 
 ## Project Structure
 
@@ -117,6 +121,7 @@ The application handles field name mapping between the API and internal data str
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd alttodo-app
@@ -183,7 +188,7 @@ The application handles field name mapping between the API and internal data str
    Progressive Web App (PWA) capabilities
    Real-time notifications via WebSocket
    Deployment
-   Deployed URL: [https://kareematodo-app-c3y2-96dy2v58o-kareemah-ahmad-yusufs-projects.vercel.app]
+   Deployed URL: [https://kareematodo-app.vercel.app]
    Deployment Steps (Vercel)
    Push code to GitHub
    Import project in Vercel
